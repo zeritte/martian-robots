@@ -54,20 +54,25 @@ describe("TEST 'robot' class", () => {
     describe("WHEN move command is passed", () => {
       describe("WHEN moving IS NOT possible", () => {
         describe("WHEN moving DOES cause a fall", () => {
-          it("SHOULD BE lost out of upper edges", () => {
+          it("SHOULD BE lost out of upper edges AND update lost scents", () => {
             const robot = new Robot(1, 2, 5, "N", []);
-            robot.move(1, [5, 5], []);
+            const updatedLostScents = robot.move(1, [5, 5], [[5, 5]]);
             expect(robot.lost).toBe(true);
             expect(robot.x).toEqual(2);
             expect(robot.y).toEqual(5);
+            expect(updatedLostScents).toEqual([
+              [5, 5],
+              [2, 5]
+            ]);
           });
 
-          it("SHOULD BE lost out of lower edges", () => {
+          it("SHOULD BE lost out of lower edges AND update lost scent", () => {
             const robot = new Robot(1, 0, 0, "S", []);
-            robot.move(1, [5, 5], []);
+            const updatedLostScents = robot.move(1, [5, 5], []);
             expect(robot.lost).toBe(true);
             expect(robot.x).toEqual(0);
             expect(robot.y).toEqual(0);
+            expect(updatedLostScents).toEqual([[0, 0]]);
           });
         });
 
