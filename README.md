@@ -18,7 +18,7 @@ The app checks the `input.txt` file for instructions, and writes the final outpu
 ### Technologies
 
 1. Typescript
-2. Node.js
+2. Node.js v14
 3. Jest
 4. mock-fs
 5. ts-node
