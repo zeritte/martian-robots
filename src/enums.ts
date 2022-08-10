@@ -13,5 +13,12 @@ export const CommandDirection = {
   FORWARD: "F"
 } as const;
 
+export const SortedOrientations = [
+  Orientation.NORTH,
+  Orientation.EAST,
+  Orientation.SOUTH,
+  Orientation.WEST
+];
+
 export type OrientationType = ReverseMap<typeof Orientation>;
 export type CommandDirectionType = ReverseMap<typeof CommandDirection>;
