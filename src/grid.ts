@@ -34,6 +34,19 @@ class Grid {
       const commands = robot.commands;
     }
   }
+
+  public display(): string {
+    const gridState: string[] = [];
+    for (let i = 0; i < this.robots.length; i += 1) {
+      const robot = this.robots[i];
+      let robotState = `${robot.x} ${robot.y} ${robot.orientation}`;
+      if (robot.lost) {
+        robotState += " LOST";
+      }
+      gridState.push(robotState);
+    }
+    return gridState.join("\n");
+  }
 }
 
 export default Grid;
