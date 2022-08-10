@@ -36,4 +36,4 @@ export const process = () => {
   fs.writeFileSync("output.txt", grid.display());
 };
 
-// process();
+process();

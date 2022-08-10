@@ -1,5 +1,6 @@
 import { CommandDirection, Orientation, SortedOrientations } from "./enums";
 import type { CommandDirectionType, OrientationType } from "./enums";
+import { MAX_ROBOT_COMMAND_SIZE } from "./constants";
 
 class Robot {
   id: number;
@@ -26,6 +27,10 @@ class Robot {
 
     if (commands.some(command => !Object.values(CommandDirection).includes(command))) {
       throw new Error("Unkown robot command provided");
+    }
+
+    if (commands.length > MAX_ROBOT_COMMAND_SIZE) {
+      throw new Error("Max robot command length exceeded");
     }
 
     this.id = id;

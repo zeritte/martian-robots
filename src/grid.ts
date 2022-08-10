@@ -1,5 +1,6 @@
-import { CommandDirection } from "./enums";
 import Robot from "./robot";
+import { CommandDirection } from "./enums";
+import { MAX_GRID_SIZE } from "./constants";
 
 class Grid {
   #width: number;
@@ -10,6 +11,10 @@ class Grid {
   constructor(width: number, height: number) {
     if (!Number.isInteger(width) || !Number.isInteger(height)) {
       throw new Error("Non-integer grid size provided");
+    }
+
+    if (width > MAX_GRID_SIZE || height > MAX_GRID_SIZE) {
+      throw new Error("Max grid size exceeded");
     }
 
     this.#width = width;
