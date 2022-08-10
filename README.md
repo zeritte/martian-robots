@@ -32,7 +32,7 @@ Various unit tests are implemented for functions and input validation.
 ### Robot class
 
 `constructor(id, x, y, orientation, commands)` -> Does simple input validation, and saves the robot properties.
-`move(gridSize, lostScents)` -> Moves the robot by one grid. Returns an object for `Grid` class to update the lost scents in case it falls.
+`move(gridSize, lostScents)` -> Moves the robot forward by one grid. Returns an object for `Grid` class to update the lost scents in case it falls.
 `turn(clockwise)` -> Turns the robot direction by 90 degrees.
 
 ### Grid class
