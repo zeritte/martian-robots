@@ -34,6 +34,16 @@ describe("TEST 'robot' class", () => {
         }
       });
     });
+
+    describe("WHEN a too long robot command passed", () => {
+      it("SHOULD return max command error", () => {
+        try {
+          new Robot(1, 1, 1, "N", Array(101).fill("R"));
+        } catch (e) {
+          expect((e as Error).message).toContain("Max robot command length exceeded");
+        }
+      });
+    });
   });
 
   describe("WHEN the constructor properties ARE properly constructed", () => {
