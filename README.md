@@ -1,5 +1,55 @@
 # Martian robots
 
+## How to run
+
+```
+npm install
+npm run start
+```
+
+To run the tests:
+
+```
+npm run test
+```
+
+The app checks the `input.txt` file for instructions, and writes the final output to `output.txt`
+
+### Technologies
+
+1. Typescript
+2. Node.js
+3. Jest
+4. mock-fs
+5. ts-node
+
+## Design
+
+The app has `Robot` and `Grid` classes. The input validation is done in class level. `move` and `turn` functionalities are implemented in `Robot` class, any further addition to type of supported command can be implemented easily by utilising these.
+
+Various unit tests are implemented for functions and input validation.
+
+### Robot class
+
+`constructor(id, x, y, orientation, commands)` -> Does simple input validation, and saves the robot properties.
+`move(gridSize, lostScents)` -> Moves the robot by one grid. Returns an object for `Grid` class to update the lost scents in case it falls.
+`turn(clockwise)` -> Turns the robot direction by 90 degrees.
+
+### Grid class
+
+`constructor(width, height)` -> Does simple input validation, and saves the grid properties.
+`addRobot(robot)` -> Adds a robot to grid.
+`moveAllRobots()` -> Executes the commands for robots, in the order of input with no concurrency.
+`display()` -> Displays the status of grid robots at a time point.
+`[private]moveRobot` -> For each robot, executes the commands one by one and gets the robot move around the grid.
+
+### Things to improve
+
+- I am not completely happy with lost scent update part. The communication between a grid and a robot on it can be moved to a separate messaging type of logic.
+- Input validation can be extended.
+- `id` property is provided to robots for any further robot based action.
+- Concurrency can be added.
+
 ## Problem: Martian Robots
 
 ### The Problem

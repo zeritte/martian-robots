@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bromix/typescript-jest-example.git"
+    "url": "git+https://github.com/zeritte/martian-robots"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bromix/typescript-jest-example/issues"
+    "url": "https://github.com/zeritte/martian-robots/issues"
   },
-  "homepage": "https://github.com/bromix/typescript-jest-example#readme",
+  "homepage": "https://github.com/zeritte/martian-robots#readme",
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "jest": "^26.6.3",
