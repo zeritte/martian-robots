@@ -1,11 +1,11 @@
-import { CommandDirectionType } from "./enums";
+import { CommandDirection } from "./enums";
 import Robot from "./robot";
 
 class Grid {
   #width: number;
   #height: number;
   robots: Robot[];
-  lostScents: Array<[number, number]>;
+  lostScents: Array<[number, number]> = [];
 
   constructor(width: number, height: number) {
     if (!Number.isInteger(width) || !Number.isInteger(height)) {
@@ -25,13 +25,30 @@ class Grid {
     this.robots.push(robot);
   }
 
-  private moveRobot(robotId: number, commands: CommandDirectionType[]) {}
+  private moveRobot(robot: Robot) {
+    for (let i = 0; i < robot.commands.length; i += 1) {
+      const command = robot.commands[i];
+      switch (command) {
+        case CommandDirection.FORWARD:
+          const updatedLostScents = robot.move(1, [this.#width, this.#height], this.lostScents);
+          this.lostScents = updatedLostScents;
+          break;
+        case CommandDirection.LEFT:
+          robot.turn(false);
+          break;
+        case CommandDirection.RIGHT:
+          robot.turn(true);
+          break;
+        default:
+          throw new Error("Unkown robot command");
+      }
+    }
+  }
 
   public moveAllRobots() {
     for (let i = 0; i < this.robots.length; i += 1) {
       const robot = this.robots[i];
-      const robotId = robot.id;
-      const commands = robot.commands;
+      this.moveRobot(robot);
     }
   }
 
