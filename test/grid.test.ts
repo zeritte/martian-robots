@@ -31,7 +31,7 @@ describe("TEST 'Grid' class", () => {
         const grid = new Grid(5, 5);
         const robot = new Robot(1, 2, 4, "N", []);
         grid.addRobot(robot);
-        expect(grid.getRobots()).toContain(robot);
+        expect(grid.robots).toContain(robot);
       });
     });
   });
