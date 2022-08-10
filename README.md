@@ -32,15 +32,21 @@ Various unit tests are implemented for functions and input validation.
 ### Robot class
 
 `constructor(id, x, y, orientation, commands)` -> Does simple input validation, and saves the robot properties.
+
 `move(gridSize, lostScents)` -> Moves the robot forward by one grid. Returns an object for `Grid` class to update the lost scents in case it falls.
+
 `turn(clockwise)` -> Turns the robot direction by 90 degrees.
 
 ### Grid class
 
 `constructor(width, height)` -> Does simple input validation, and saves the grid properties.
+
 `addRobot(robot)` -> Adds a robot to grid.
+
 `moveAllRobots()` -> Executes the commands for robots, in the order of input with no concurrency.
+
 `display()` -> Displays the status of grid robots at a time point.
+
 `[private]moveRobot` -> For each robot, executes the commands one by one and gets the robot move around the grid.
 
 ### Things to improve
