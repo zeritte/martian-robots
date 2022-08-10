@@ -2,13 +2,30 @@ import Grid from "../src/grid";
 import Robot from "../src/robot";
 
 describe("TEST 'Grid' class", () => {
-  describe("WHEN the grid size IS NOT properly structred", () => {
+  describe("WHEN the grid size IS NOT properly structured", () => {
     it("SHOULD throw non-integer size error", () => {
       try {
         // @ts-expect-error
         new Grid("1", "2");
       } catch (e) {
         expect((e as Error).message).toContain("Non-integer grid size provided");
+      }
+    });
+
+  describe("WHEN the grid size DOES exceed the max grid size allowance", () => {
+    it("SHOULD throw max grid size error for height", () => {
+      try {
+        new Grid(50, 51);
+      } catch (e) {
+        expect((e as Error).message).toContain("Max grid size exceeded");
+      }
+    });
+
+    it("SHOULD throw max grid size error for width", () => {
+      try {
+        new Grid(55, 10);
+      } catch (e) {
+        expect((e as Error).message).toContain("Max grid size exceeded");
       }
     });
   });
