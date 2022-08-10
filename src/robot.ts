@@ -2,6 +2,15 @@ import { CommandDirection, Orientation, SortedOrientations } from "./enums";
 import type { CommandDirectionType, OrientationType } from "./enums";
 import { MAX_ROBOT_COMMAND_SIZE } from "./constants";
 
+type MoveResult =
+  | {
+      didFall: true;
+      fallenCoordinates: [number, number];
+    }
+  | {
+      didFall: false;
+    };
+
 class Robot {
   id: number;
   x: number;
@@ -40,16 +49,12 @@ class Robot {
     this.commands = commands;
   }
 
-  public move(
-    steps: number,
-    gridSize: [number, number],
-    lostScents: Array<[number, number]>
-  ): Array<[number, number]> {
+  public move(gridSize: [number, number], lostScents: Array<[number, number]>): MoveResult {
     const gridHorizontalSize = gridSize[0];
     const gridVerticalSize = gridSize[1];
 
     if (this.lost) {
-      return lostScents;
+      return { didFall: false };
     }
 
     const canFall = !lostScents.some(
@@ -59,36 +64,36 @@ class Robot {
     let newX: number, newY: number;
     switch (this.orientation) {
       case Orientation.EAST:
-        newX = this.x + steps;
+        newX = this.x + 1;
         if (newX > gridHorizontalSize || newX < 0) {
-          if (!canFall) return lostScents;
+          if (!canFall) return { didFall: false };
           this.lost = true;
           break;
         }
         this.x = newX;
         break;
       case Orientation.WEST:
-        newX = this.x - steps;
+        newX = this.x - 1;
         if (newX > gridHorizontalSize || newX < 0) {
-          if (!canFall) return lostScents;
+          if (!canFall) return { didFall: false };
           this.lost = true;
           break;
         }
         this.x = newX;
         break;
       case Orientation.NORTH:
-        newY = this.y + steps;
+        newY = this.y + 1;
         if (newY > gridVerticalSize || newY < 0) {
-          if (!canFall) return lostScents;
+          if (!canFall) return { didFall: false };
           this.lost = true;
           break;
         }
         this.y = newY;
         break;
       case Orientation.SOUTH:
-        newY = this.y - steps;
+        newY = this.y - 1;
         if (newY > gridVerticalSize || newY < 0) {
-          if (!canFall) return lostScents;
+          if (!canFall) return { didFall: false };
           this.lost = true;
           break;
         }
@@ -99,9 +104,9 @@ class Robot {
     }
 
     if (this.lost) {
-      return [...lostScents, [this.x, this.y]];
+      return { didFall: true, fallenCoordinates: [this.x, this.y] };
     }
-    return lostScents;
+    return { didFall: false };
   }
 
   public turn(clockwise: boolean) {

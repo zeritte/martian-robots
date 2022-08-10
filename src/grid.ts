@@ -35,8 +35,10 @@ class Grid {
       const command = robot.commands[i];
       switch (command) {
         case CommandDirection.FORWARD:
-          const updatedLostScents = robot.move(1, [this.#width, this.#height], this.lostScents);
-          this.lostScents = updatedLostScents;
+          const moveForwardResult = robot.move([this.#width, this.#height], this.lostScents);
+          if (moveForwardResult.didFall) {
+            this.lostScents.push(moveForwardResult.fallenCoordinates);
+          }
           break;
         case CommandDirection.LEFT:
           robot.turn(false);

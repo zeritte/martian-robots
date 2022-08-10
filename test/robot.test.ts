@@ -66,33 +66,39 @@ describe("TEST 'robot' class", () => {
         describe("WHEN moving DOES cause a fall", () => {
           it("SHOULD BE lost out of upper edges AND update lost scents", () => {
             const robot = new Robot(1, 2, 5, "N", []);
-            const updatedLostScents = robot.move(1, [5, 5], [[5, 5]]);
+            const updatedMoveResult = robot.move([5, 5], [[5, 5]]);
             expect(robot.lost).toBe(true);
             expect(robot.x).toEqual(2);
             expect(robot.y).toEqual(5);
-            expect(updatedLostScents).toEqual([
-              [5, 5],
-              [2, 5]
-            ]);
+            expect(updatedMoveResult).toEqual({
+              didFall: true,
+              fallenCoordinates: [2, 5]
+            });
           });
 
           it("SHOULD BE lost out of lower edges AND update lost scent", () => {
             const robot = new Robot(1, 0, 0, "S", []);
-            const updatedLostScents = robot.move(1, [5, 5], []);
+            const updatedLostScents = robot.move([5, 5], []);
             expect(robot.lost).toBe(true);
             expect(robot.x).toEqual(0);
             expect(robot.y).toEqual(0);
-            expect(updatedLostScents).toEqual([[0, 0]]);
+            expect(updatedLostScents).toEqual({
+              didFall: true,
+              fallenCoordinates: [0, 0]
+            });
           });
         });
 
         describe("WHEN moving DOES NOT cause a fall because of a lost scent", () => {
           it("SHOULD NOT BE lost", () => {
             const robot = new Robot(1, 3, 5, "N", []);
-            robot.move(1, [5, 5], [[3, 5]]);
+            const moveResult = robot.move([5, 5], [[3, 5]]);
             expect(robot.lost).toBe(false);
             expect(robot.x).toEqual(3);
             expect(robot.y).toEqual(5);
+            expect(moveResult).toEqual({
+              didFall: false
+            });
           });
         });
       });
@@ -100,30 +106,42 @@ describe("TEST 'robot' class", () => {
       describe("WHEN moving IS possible", () => {
         it("SHOULD move properly in north direction", () => {
           const robot = new Robot(1, 1, 1, "N", []);
-          robot.move(1, [5, 5], []);
+          const moveResult = robot.move([5, 5], []);
           expect(robot.x).toEqual(1);
           expect(robot.y).toEqual(2);
+          expect(moveResult).toEqual({
+            didFall: false
+          });
         });
 
         it("SHOULD move properly in west direction", () => {
           const robot = new Robot(1, 1, 0, "W", []);
-          robot.move(1, [5, 5], []);
+          const moveResult = robot.move([5, 5], []);
           expect(robot.x).toEqual(0);
           expect(robot.y).toEqual(0);
+          expect(moveResult).toEqual({
+            didFall: false
+          });
         });
 
         it("SHOULD move properly in south direction", () => {
           const robot = new Robot(1, 1, 1, "S", []);
-          robot.move(1, [5, 5], []);
+          const moveResult = robot.move([5, 5], []);
           expect(robot.x).toEqual(1);
           expect(robot.y).toEqual(0);
+          expect(moveResult).toEqual({
+            didFall: false
+          });
         });
 
         it("SHOULD move properly in east direction", () => {
           const robot = new Robot(1, 1, 1, "E", []);
-          robot.move(1, [5, 5], []);
+          const moveResult = robot.move([5, 5], []);
           expect(robot.x).toEqual(2);
           expect(robot.y).toEqual(1);
+          expect(moveResult).toEqual({
+            didFall: false
+          });
         });
       });
     });
