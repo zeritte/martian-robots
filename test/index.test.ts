@@ -47,6 +47,30 @@ describe("TEST main 'process' function", () => {
           }
         });
       });
+
+      describe("WHEN the input HAS a MISSING robot command", () => {
+        beforeEach(() => {
+          mock({
+            // Grid size and robot position are given, but robot commands are missing
+            "input.txt": `5 3
+1 1 E
+`
+          });
+        });
+
+        afterEach(() => {
+          mock.restore();
+          jest.clearAllMocks();
+        });
+
+        it("SHOULD return invalid robot data error", () => {
+          try {
+            process();
+          } catch (e) {
+            expect((e as Error).message).toContain("Unable to parse one of the robot data");
+          }
+        });
+      });
     });
 
     describe("WHEN the input IS properly structured", () => {
