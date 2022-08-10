@@ -1,4 +1,4 @@
-const mock = require("mock-fs");
+const mockFs = require("mock-fs");
 import fs, { writeFileSync } from "fs";
 import { process } from "../index";
 
@@ -8,11 +8,11 @@ const mockWriteFileSync = writeFileSync as jest.MockedFunction<typeof writeFileS
 describe("TEST main 'process' function", () => {
   describe("WHEN the input file IS NOT found", () => {
     beforeEach(() => {
-      mock({});
+      mockFs({});
     });
 
     afterEach(() => {
-      mock.restore();
+      mockFs.restore();
       jest.clearAllMocks();
     });
 
@@ -29,13 +29,13 @@ describe("TEST main 'process' function", () => {
     describe("WHEN the input IS NOT properly structured", () => {
       describe("WHEN the input DOES NOT have proper gird size", () => {
         beforeEach(() => {
-          mock({
+          mockFs({
             "input.txt": `salih salih`
           });
         });
 
         afterEach(() => {
-          mock.restore();
+          mockFs.restore();
           jest.clearAllMocks();
         });
 
@@ -50,7 +50,7 @@ describe("TEST main 'process' function", () => {
 
       describe("WHEN the input HAS a MISSING robot command", () => {
         beforeEach(() => {
-          mock({
+          mockFs({
             // Grid size and robot position are given, but robot commands are missing
             "input.txt": `5 3
 1 1 E
@@ -59,7 +59,7 @@ describe("TEST main 'process' function", () => {
         });
 
         afterEach(() => {
-          mock.restore();
+          mockFs.restore();
           jest.clearAllMocks();
         });
 
@@ -75,7 +75,7 @@ describe("TEST main 'process' function", () => {
 
     describe("WHEN the input IS properly structured", () => {
       beforeEach(() => {
-        mock({
+        mockFs({
           "input.txt": `5 3
 1 1 E
 RFRFRFRF
@@ -89,7 +89,7 @@ LLFFFLFLFL`
       });
 
       afterEach(() => {
-        mock.restore();
+        mockFs.restore();
         jest.clearAllMocks();
       });
 

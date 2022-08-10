@@ -33,7 +33,7 @@ export const process = () => {
 
   grid.moveAllRobots();
 
-  // fs.writeFileSync("output.txt", robotCommands.toString());
+  fs.writeFileSync("output.txt", grid.display());
 };
 
 // process();
