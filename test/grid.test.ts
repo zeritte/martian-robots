@@ -57,7 +57,7 @@ describe("TEST 'Grid' class", () => {
 
     describe("WHEN display function is called", () => {
       describe("WHEN there IS a lost robot", () => {
-        it("SHOULD throw out of boundary error", () => {
+        it("SHOULD display the correct output", () => {
           const grid = new Grid(10, 10);
           const robot1 = new Robot(1, 2, 5, "N", []);
           robot1.lost = true;
@@ -70,7 +70,7 @@ describe("TEST 'Grid' class", () => {
       });
 
       describe("WHEN there IS NOT a lost robot", () => {
-        it("SHOULD throw out of boundary error", () => {
+        it("SHOULD display the correct output", () => {
           const grid = new Grid(10, 10);
           const robot = new Robot(1, 2, 5, "N", []);
           grid.addRobot(robot);
